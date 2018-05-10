@@ -430,7 +430,6 @@ pc_append "192.168.50.2 ntd-asus-2014b-en.fbs20.trendmicro.com" $CONFIG
 sed -i '$a\## end of Silently Block All Redundant Querys to Google, TrendMicro, and Asus ##' $CONFIG
 sed -i '$a\#' $CONFIG
 
-
 # 4) Block AsusWRT 10 second reoccuring portless probe to 8.8.8.8 (google dns)
 
 # 5) Block Reoccuring DNS Probe to Microsoft
@@ -439,10 +438,10 @@ nvram set dns_probe_content=127.0.0.1
 nvram commit
 notify: make sure to reboot router
 
-# 6) Block IPv6 DNS over IPv4 & Enable Dnscrypt Logs (requires Dnscrypt)
+# 6) Block IPv6 DNS over IPv4 (requires Dnscrypt)
 /jffs/dnscrypt/dnscrypt-proxy.toml
 search for & Replace string
-"block_ipv6" = false with "block_ipv6 = true"
+sed -i -e 's/block_ipv6 = false/block_ipv6 = true/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
 
 restart dnscrypt
 (for dnscrypt installer)
@@ -455,8 +454,18 @@ pc_append "server=/ip6.arpa/" $CONFIG
 /etc/dnsmasq.conf
 restart dnsmsasq
 
+# 8) Enable Dnscrypt Logs 
+sed -i -e 's/# log_level/log_level/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
+sed -i -e 's/# file = 'query.log'/file = 'query.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
+sed -i -e 's/# file = 'nx.log'/file = s'uspicious.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
+sed -i -e 's/# log_file = 'dnscrypt-proxy.log'/log_file = 'dnscrypt-proxy.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
 
-# 8) Remove all changes
+restart dnscrypt
+(for dnscrypt installer)
+/jffs/dnscrypt/manager dnscrypt-stop
+/jffs/dnscrypt/manager dnscrypt-start
+
+# 9) Remove all changes
 
 # e) Exit
 
