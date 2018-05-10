@@ -8,6 +8,7 @@ Code:
 # sh /jffs/scripts/scriptname.sh "xx xx xx xx"
 # or sh /jffs/scripts/countryblock.sh "xx"
 # Call the file whatever you want, then just add an entry in /jffs/scripts/firewall-start (above Skynets)
+# For example: 
 # sh /jffs/scripts/countryblock.sh "il"
 # chmod 0755 /jffs/scripts/countryblock.sh
 
