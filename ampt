@@ -166,7 +166,8 @@ recheck_opt(){
 
 
 
-# 1) Speed up browsing, Harden DNS, Stop AsusWRT Probes: Block PTR on Localhost, allow PTR for Clients (192.168.*)
+# 1) *Speed up browsing upto 10x, Stop AsusWRT Probes
+     Block PTR on Localhost, allow PTR for Clients (192.168.*)*
 Notify users: 
 Created/Added to bottom of /jffs/scripts/dnsmasq.postconf 
 and /etc/dnsmasq.conf (to avoid rebooting)
@@ -186,10 +187,10 @@ sed -i '$a\ ' $CONFIG
 pc_append "server=/168.192.in-addr.arpa/#" $CONFIG
 pc_append "server=/in-addr.arpa/" $CONFIG
 
-
 (then restart dnsmasq via "dnsmsasq")
 
-# 2) Speed up browsing, Stop AsusWRT Probes: Block PTR on Localhost + Clients (192.168.*) For enhanced security.
+# 2) *Speed up browsing upto 10x, Stop AsusWRT Probes: 
+     Block PTR on Localhost + Clients (192.168.*) For enhanced security.*
 
 Notify users: Created/Added to bottom of /jffs/scripts/dnsmasq.postconf
 and /etc/dnsmasq.conf (to avoid rebooting)
