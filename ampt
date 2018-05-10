@@ -212,12 +212,14 @@ pc_append "server=/in-addr.arpa/" $CONFIG
 then restart dnsmasq via "dnsmsasq"
 
 #2a) Block Arpa entirely (experimental)
+Notify users: Created/Added to bottom of 
 /jffs/scripts/dnsmasq.postconf
 and /etc/dnsmasq.conf (to avoid rebooting)
 
 pc_append "server=/arpa/" $CONFIG
 
 # 3) Block AsusWRT built in signaling to Trendmicro, Google & other entities
+Notify users: Created/Added to 
 Create/Add to bottom of /jffs/scripts/hosts.postconf
 and /etc/hosts (to avoid rebooting)
 
