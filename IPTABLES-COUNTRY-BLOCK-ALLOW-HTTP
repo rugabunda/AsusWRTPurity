@@ -4,13 +4,12 @@ Code:
 # https://github.com/Adamm00/IPSet_ASUS
 # Remove #, then add # on line above to enable logs!
 # Optional: Rename [BLOCKED - INBOUND] to specified country (only one name at a time allowed atm)
-# Usage is as follows;
-# Code:
-# For AsusWRT Merlin:
-#sh /jffs/scripts/scriptname.sh "xx xx xx xx"
-#sh /jffs/scripts/countryblock.sh "il"
-#You can call the file whatever you want, then just add an entry in /jffs/scripts/firewall-start (above Skynets)
-#chmod 0755 /jffs/scripts/countryblock.sh
+# Usage is as follows For AsusWRT Merlin:
+# sh /jffs/scripts/scriptname.sh "xx xx xx xx"
+# or sh /jffs/scripts/countryblock.sh "xx"
+# Call the file whatever you want, then just add an entry in /jffs/scripts/firewall-start (above Skynets)
+# sh /jffs/scripts/countryblock.sh "il"
+# chmod 0755 /jffs/scripts/countryblock.sh
 
 
 if [ -z "$1" ]; then echo "Country Field Can't Be Empty - Please Try Again"; echo; exit 2; fi
