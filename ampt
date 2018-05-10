@@ -322,7 +322,7 @@ restart dnsmsasq
 # 8) Enable Dnscrypt Logs 
 sed -i -e 's/# log_level/log_level/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
 sed -i -e 's/# file = 'query.log'/file = 'query.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
-sed -i -e 's/# file = 'nx.log'/file = s'uspicious.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
+sed -i -e 's/# file = 'nx.log'/file = 'suspicious.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
 sed -i -e 's/# log_file = 'dnscrypt-proxy.log'/log_file = 'dnscrypt-proxy.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
 
 restart dnscrypt
