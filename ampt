@@ -221,7 +221,7 @@ pc_append "server=/arpa/" $CONFIG
 # 3) Block AsusWRT built in signaling to Trendmicro, Google & other entities
 Notify users: 
 Create/Add to bottom of /jffs/scripts/hosts.postconf
-and /etc/hosts (to avoid rebooting)
+
 
 #!/bin/sh
 
@@ -270,6 +270,8 @@ and /etc/hosts (to avoid rebooting)
 
 not sure how to do this, but 
 ping google.com >> ping.txt and copy the text or something like that would be great to automate this process.
+
+also add to /etc/hosts (to avoid rebooting)
 
 CONFIG=$1
 source /usr/sbin/helper.sh
