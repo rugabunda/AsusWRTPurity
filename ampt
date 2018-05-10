@@ -298,7 +298,7 @@ sed -i '$a\## end of Silently Block All Redundant Querys to Google, TrendMicro, 
 sed -i '$a\#' $CONFIG
 
 # 4) Block AsusWRT 10 second reoccuring portless probe to 8.8.8.8 (google dns)
-
+(waiting for code, want to block this without needing skynet)
 # 5) Block Reoccuring DNS Probe to Microsoft
 
 nvram set dns_probe_content=127.0.0.1
