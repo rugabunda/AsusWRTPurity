@@ -3,6 +3,7 @@ Code:
 # Code Used From Skynet By Adamm
 # https://github.com/Adamm00/IPSet_ASUS
 # Remove #, then add # on line above to enable logs!
+# Rename [BLOCKED - INBOUND] to specified country (only one name at a time allowed atm)
 
 if [ -z "$1" ]; then echo "Country Field Can't Be Empty - Please Try Again"; echo; exit 2; fi
 if [ "${#1}" -gt "246" ]; then countrylist="Multiple Countries"; else countrylist="$1"; fi
