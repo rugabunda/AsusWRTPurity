@@ -187,7 +187,7 @@ sed -i '$a\ ' $CONFIG
 pc_append "server=/168.192.in-addr.arpa/#" $CONFIG
 pc_append "server=/in-addr.arpa/" $CONFIG
 
-(then restart dnsmasq via "dnsmsasq")
+(service restart_dnsmasq)
 
 # 2) *Speed up browsing upto 10x, Stop AsusWRT Probes: 
      Block PTR on Localhost + Clients (192.168.*) For enhanced security.*
@@ -210,7 +210,7 @@ sed -i '$a\ ' $CONFIG
 pc_append "server=/168.192.in-addr.arpa/" $CONFIG
 pc_append "server=/in-addr.arpa/" $CONFIG
 
-then restart dnsmasq via "dnsmsasq"
+service restart_dnsmasq
 
 #2a) Block Arpa entirely (experimental)
 Notify users: Created/Added to bottom of 
@@ -218,6 +218,7 @@ Notify users: Created/Added to bottom of
 and /etc/dnsmasq.conf (to avoid rebooting)
 
 pc_append "server=/arpa/" $CONFIG
+service restart_dnsmasq
 
 # 3) Block AsusWRT built in signaling to Trendmicro, Google & other entities
 Notify users: 
@@ -300,6 +301,8 @@ pc_append "192.168.50.2 ntd-asus-2014b-en.fbs20.trendmicro.com" $CONFIG
 sed -i '$a\## end of Silently Block All Redundant Querys to Google, TrendMicro, and Asus ##' $CONFIG
 sed -i '$a\#' $CONFIG
 
+service restart_dnsmasq
+
 # 4) Block AsusWRT 10 second reoccuring portless probe to 8.8.8.8 (google dns)
 (waiting for code, want to block this without needing skynet)
 
@@ -323,7 +326,7 @@ restart dnscrypt
 pc_append "server=/ip6.arpa/" $CONFIG
 /jffs/scripts/dnsmasq.postconf
 /etc/dnsmasq.conf
-restart dnsmsasq
+service restart_dnsmasq
 
 # 8) Enable Dnscrypt Logs 
 sed -i -e 's/# log_level/log_level/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
