@@ -20,7 +20,7 @@ export PATH=/sbin:/bin:/usr/sbin:/usr/bin$PATH
 # Version, release date
 version=0.01
 release="May 15 2018"
-title="Asuswrt-Merlin Purity"
+title="AsusWRTPurity"
 thisScript=ampt
 
 # Functions follow
