@@ -226,9 +226,9 @@ Create/Add to bottom of /jffs/scripts/hosts.postconf
 
 #!/bin/sh
 
-################################################################################
-### Block Trendmicro / Asus / Google & redundant NXDOMAIN dnsmasq querys and logs
-################################################################################
+############################################################################################
+### Block Trendmicro / Asus / Google Probes & redundant NXDOMAIN dnsmasq querys and logs ###
+############################################################################################
 
 # Blocks most 10-14 second reoccurring querys to google
 # Blocks all reoccurring querys to Asus / Trend Micro
