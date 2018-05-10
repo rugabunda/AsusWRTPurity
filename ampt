@@ -219,7 +219,7 @@ and /etc/dnsmasq.conf (to avoid rebooting)
 pc_append "server=/arpa/" $CONFIG
 
 # 3) Block AsusWRT built in signaling to Trendmicro, Google & other entities
-Notify users: Created/Added to 
+Notify users: 
 Create/Add to bottom of /jffs/scripts/hosts.postconf
 and /etc/hosts (to avoid rebooting)
 
