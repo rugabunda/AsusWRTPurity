@@ -1,0 +1,42 @@
+#!/bin/sh
+# Free to use and distribute 
+# Remove #, then add # on line above to enable logs!
+# Optional: Rename [COUNTRY BLOCKED - INBOUND] to specified country (only one name at a time allowed atm)
+# Usage is as follows For AsusWRT Merlin:
+# sh /jffs/scripts/scriptname.sh "xx xx xx xx"
+# or sh /jffs/scripts/countryblock.sh "xx"
+# Call the file whatever you want, then just add an entry in /jffs/scripts/firewall-start (above Skynets)
+# For example: 
+# sh /jffs/scripts/countryblock.sh "il"
+# chmod 0755 /jffs/scripts/countryblock.sh
+
+
+if [ -z "$1" ]; then echo "Country Field Cannot Be Empty - Please Try Again"; echo; exit 2; fi
+if [ "${#1}" -gt "246" ]; then countrylist="Multiple Countries"; else countrylist="$1"; fi
+if [ "$(nvram get wan0_proto)" = "pppoe" ] || [ "$(nvram get wan0_proto)" = "pptp" ] || [ "$(nvram get wan0_proto)" = "l2tp" ]; then
+    iface="ppp0"
+else
+    iface="$(nvram get wan0_ifname)"
+fi
+modprobe xt_set
+if ! ipset -L -n CountryBlock >/dev/null 2>&1; then ipset -q create CountryBlock hash:net --maxelem 200000 comment; fi
+iptables -t raw -D PREROUTING -i "$iface" -m set --match-set CountryBlock src -j DROP 2>/dev/null
+# iptables -t raw -D PREROUTING -i "$iface" -m set --match-set CountryBlock src -j LOG --log-prefix "[BLOCKED - INBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
+iptables -t raw -D PREROUTING -i "$iface" -m set --match-set CountryBlock src -p tcp -m tcp -m multiport --sports 80,443 -j ACCEPT 2>/dev/null
+iptables -t raw -D PREROUTING -i br0 -m set --match-set CountryBlock dst -j DROP 2>/dev/null
+# iptables -t raw -D PREROUTING -i br0 -m set --match-set CountryBlock dst -j LOG --log-prefix "[BLOCKED - OUTBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
+iptables -t raw -D PREROUTING -i br0 -m set --match-set CountryBlock dst -p tcp -m tcp -m multiport --dports 80,443 -j ACCEPT 2>/dev/null
+iptables -t raw -I PREROUTING -i "$iface" -m set --match-set CountryBlock src -j DROP 2>/dev/null
+# iptables -t raw -I PREROUTING -i "$iface" -m set --match-set CountryBlock src -j LOG --log-prefix "[BLOCKED - INBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
+iptables -t raw -I PREROUTING -i "$iface" -m set --match-set CountryBlock src -p tcp -m tcp -m multiport --sports 80,443 -j ACCEPT 2>/dev/null
+iptables -t raw -I PREROUTING -i br0 -m set --match-set CountryBlock dst -j DROP 2>/dev/null
+# iptables -t raw -I PREROUTING -i br0 -m set --match-set CountryBlock dst -j LOG --log-prefix "[BLOCKED - OUTBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
+iptables -t raw -I PREROUTING -i br0 -m set --match-set CountryBlock dst -p tcp -m tcp -m multiport --dports 80,443 -j ACCEPT 2>/dev/null
+echo "Banning Known IP Ranges For (${1})"
+echo "Downloading Lists"
+for country in $1; do
+    /usr/sbin/curl -fsL --retry 3 http://ipdeny.com/ipblocks/data/aggregated/"$country"-aggregated.zone >> /tmp/CountryBlock.txt
+done
+echo "Filtering IPv4 Ranges & Applying Blacklists"
+grep -F "/" /tmp/CountryBlock.txt | sed -n "s/\\r//;/^$/d;/^[0-9,\\.,\\/]*$/s/^/add CountryBlock /p" | sed "s/$/& comment \"Country: $countrylist\"/" | ipset restore -!
+rm -rf "/tmp/CountryBlock.txt"
