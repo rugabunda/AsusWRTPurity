@@ -10,7 +10,6 @@
 # sh /jffs/scripts/countryblock.sh "il"
 # chmod 0755 /jffs/scripts/countryblock.sh
 
-
 if [ -z "$1" ]; then echo "Country Field Cannot Be Empty - Please Try Again"; echo; exit 2; fi
 if [ "${#1}" -gt "246" ]; then countrylist="Multiple Countries"; else countrylist="$1"; fi
 if [ "$(nvram get wan0_proto)" = "pppoe" ] || [ "$(nvram get wan0_proto)" = "pptp" ] || [ "$(nvram get wan0_proto)" = "l2tp" ]; then
