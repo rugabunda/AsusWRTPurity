@@ -11,7 +11,7 @@ Code:
 # chmod 0755 /jffs/scripts/countryblock.sh
 
 
-if [ -z "$1" ]; then echo "Country Field Can't Be Empty - Please Try Again"; echo; exit 2; fi
+if [ -z "$1" ]; then echo "Country Field Cannot Be Empty - Please Try Again"; echo; exit 2; fi
 if [ "${#1}" -gt "246" ]; then countrylist="Multiple Countries"; else countrylist="$1"; fi
 if [ "$(nvram get wan0_proto)" = "pppoe" ] || [ "$(nvram get wan0_proto)" = "pptp" ] || [ "$(nvram get wan0_proto)" = "l2tp" ]; then
     iface="ppp0"
@@ -21,16 +21,16 @@ fi
 modprobe xt_set
 if ! ipset -L -n CountryBlock >/dev/null 2>&1; then ipset -q create CountryBlock hash:net --maxelem 200000 comment; fi
 iptables -t raw -D PREROUTING -i "$iface" -m set --match-set CountryBlock src -j DROP 2>/dev/null
-# iptables -t raw -D PREROUTING -i "$iface" -m set --match-set CountryBlock src -j LOG --log-prefix "[BLOCKED - INBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
+# iptables -t raw -D PREROUTING -i "$iface" -m set --match-set CountryBlock src -j LOG --log-prefix "[COUNTRY BLOCKED - INBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
 iptables -t raw -D PREROUTING -i "$iface" -m set --match-set CountryBlock src -p tcp -m tcp -m multiport --sports 80,443 -j ACCEPT 2>/dev/null
 iptables -t raw -D PREROUTING -i br0 -m set --match-set CountryBlock dst -j DROP 2>/dev/null
-# iptables -t raw -D PREROUTING -i br0 -m set --match-set CountryBlock dst -j LOG --log-prefix "[BLOCKED - OUTBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
+# iptables -t raw -D PREROUTING -i br0 -m set --match-set CountryBlock dst -j LOG --log-prefix "[COUNTRY BLOCKED - OUTBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
 iptables -t raw -D PREROUTING -i br0 -m set --match-set CountryBlock dst -p tcp -m tcp -m multiport --dports 80,443 -j ACCEPT 2>/dev/null
 iptables -t raw -I PREROUTING -i "$iface" -m set --match-set CountryBlock src -j DROP 2>/dev/null
-# iptables -t raw -I PREROUTING -i "$iface" -m set --match-set CountryBlock src -j LOG --log-prefix "[BLOCKED - INBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
+# iptables -t raw -I PREROUTING -i "$iface" -m set --match-set CountryBlock src -j LOG --log-prefix "[COUNTRY BLOCKED - INBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
 iptables -t raw -I PREROUTING -i "$iface" -m set --match-set CountryBlock src -p tcp -m tcp -m multiport --sports 80,443 -j ACCEPT 2>/dev/null
 iptables -t raw -I PREROUTING -i br0 -m set --match-set CountryBlock dst -j DROP 2>/dev/null
-# iptables -t raw -I PREROUTING -i br0 -m set --match-set CountryBlock dst -j LOG --log-prefix "[BLOCKED - OUTBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
+# iptables -t raw -I PREROUTING -i br0 -m set --match-set CountryBlock dst -j LOG --log-prefix "[COUNTRY BLOCKED - OUTBOUND] " --log-tcp-sequence --log-tcp-options --log-ip-options 2>/dev/null
 iptables -t raw -I PREROUTING -i br0 -m set --match-set CountryBlock dst -p tcp -m tcp -m multiport --dports 80,443 -j ACCEPT 2>/dev/null
 echo "Banning Known IP Ranges For (${1})"
 echo "Downloading Lists"
