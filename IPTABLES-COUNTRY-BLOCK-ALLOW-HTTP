@@ -1,7 +1,5 @@
 Code:
 #!/bin/sh
-# Code Used From Skynet By Adamm
-# https://github.com/Adamm00/IPSet_ASUS
 # Remove #, then add # on line above to enable logs!
 # Optional: Rename [BLOCKED - INBOUND] to specified country (only one name at a time allowed atm)
 # Usage is as follows For AsusWRT Merlin:
