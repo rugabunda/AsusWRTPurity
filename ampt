@@ -1,61 +1,40 @@
 # 1) *Speed up browsing upto 10x, Stop AsusWRT Probes
-     Block PTR on Localhost, allow PTR for Clients (192.168.*)*
+     Block PTR / Arpa
 Notify users: 
 Created/Added to bottom of /jffs/scripts/dnsmasq.postconf 
-and /etc/dnsmasq.conf (to avoid rebooting)
-(press any key to continue)
+
+#!/bin/sh
+
+##########################
+#### Block PTR & ARPA ####
+##########################
 
 CONFIG=$1
 source /usr/sbin/helper.sh
 sed -i '$a\ ' $CONFIG
-sed -i '$a\###############################################' $CONFIG
-sed -i '$a\#Block PTR on localhost, allow PTR for clients#' $CONFIG
-sed -i '$a\###############################################' $CONFIG
+sed -i '$a\################################' $CONFIG
+sed -i '$a\#Block Calling home PTR Queries#' $CONFIG
+sed -i '$a\################################' $CONFIG
 sed -i '$a\ ' $CONFIG
-sed -i '$a\####################################' $CONFIG
-sed -i '$a\#May Speed up Browsing Considerably#' $CONFIG
-sed -i '$a\####################################' $CONFIG
+sed -i '$a\##################################################' $CONFIG
+sed -i '$a\#Can Speed up Browsing Considerably [UPON REBOOT]#' $CONFIG
+sed -i '$a\##################################################' $CONFIG
 sed -i '$a\ ' $CONFIG
-pc_append "server=/168.192.in-addr.arpa/#" $CONFIG
-pc_append "server=/in-addr.arpa/" $CONFIG
 
-(service restart_dnsmasq)
-
-# 2) *Speed up browsing upto 10x, Stop AsusWRT Probes: 
-     Block PTR on Localhost + Clients (192.168.*) For enhanced security.*
-
-Notify users: Created/Added to bottom of /jffs/scripts/dnsmasq.postconf
-and /etc/dnsmasq.conf (to avoid rebooting)
-(press any key to continue)
-
-CONFIG=$1
-source /usr/sbin/helper.sh
-sed -i '$a\ ' $CONFIG
-sed -i '$a\###############################################' $CONFIG
-sed -i '$a\#Block PTR on localhost, block PTR for clients#' $CONFIG
-sed -i '$a\###############################################' $CONFIG
-sed -i '$a\ ' $CONFIG
-sed -i '$a\####################################' $CONFIG
-sed -i '$a\#May Speed up Browsing Considerably#' $CONFIG
-sed -i '$a\####################################' $CONFIG
-sed -i '$a\ ' $CONFIG
-pc_append "server=/168.192.in-addr.arpa/" $CONFIG
-pc_append "server=/in-addr.arpa/" $CONFIG
-
-service restart_dnsmasq
-
-#2a) Block Arpa entirely (experimental)
-Notify users: Created/Added to bottom of 
-/jffs/scripts/dnsmasq.postconf
-and /etc/dnsmasq.conf (to avoid rebooting)
-
+sed -i '$a\#Success!: Disable all Arpa: https://www.iana.org/domains/arpa' $CONFIG
+pc_append "bogus-priv" $CONFIG
 pc_append "server=/arpa/" $CONFIG
-service restart_dnsmasq
+pc_append "server=/url.trendmicro.com/" $CONFIG
 
-# 3) Block AsusWRT built in signaling to Trendmicro, Google & other entities
+
+
+
+
+
+# 2) Block AsusWRT built in signaling to Trendmicro, Google & other entities
 Notify users: 
+
 Create/Add to bottom of /jffs/scripts/hosts.postconf
-(and /etc/hosts below)
 
 #!/bin/sh
 
@@ -72,14 +51,14 @@ Create/Add to bottom of /jffs/scripts/hosts.postconf
 # (A) The items listed below have been blocked by dnscrypt or dnsmasq
 # (B) You've compiled and blocked whatever unique suspicious entries appear for you in dnscrypt.
 # (C) You disable in-addr.arpa (PTR/Reverse DNS altogether for localhost) (recommended)
-# This will break DNS name resolutions in AsusWRT apps like itfop; And possibly some websites
+# This will break DNS name resolutions in AsusWRT apps like itfop (no biggie).
 # Alternatively you may selectively block IP's collected from dnscrypt suspicious.log via dnsmasq hosts
-# Rebooting the router with suspicious entry logs enabled will give you the list.
+# Rebooting the router with dnscrypt suspicious entry logs enabled will give you the list.
 #
 # 2. Note, repeated 10 second AsusWRT probes to google.com become apparent only when blocking AsusWRT querys
 # to google safe browsing; the only solution for this without breaking google.com is a custom host entry in
-# dnsmasq as provided here. I recommend pinging google.com and replacing the IP below with whatever IP appears.
-#
+# dnsmasq as provided here. [update this no longer appears to be an issue in 384.7-beta1, not sure when this changed]
+# I recommended pinging google.com and replacing the IP below with whatever IP appears.
 # Exact order of persistent reoccurring query's found in dnscrypt blocked.log after compiling hundreds of
 # entries from suspicious.log and importing them to blacklist.txt
 #
@@ -97,82 +76,67 @@ Create/Add to bottom of /jffs/scripts/hosts.postconf
 # rgom10-en.url.trendmicro.com
 ##############################################################################
 
-#Ensure AB-Solution is Installed:
-#Code /usr/sbin/curl -Os https://raw.githubusercontent.com/decoderman/amtm/master/amtm && sh amtm
-#Make sure to ping google.com and replace 74.125.205.147 with local version
-#Enable or disable sig updates as desired.
-
-not sure how to do this, but 
-ping google.com >> ping.txt and copy the text or something like that would be great to automate this process.
-
-also add to /etc/hosts (to avoid rebooting)
+#Enable or disable sig updates as desired, just unblock dlcdnets-asus.com, run dnsmsaq run sig2nd_update.sh, reblock, repeat.
+#Permanent unblock will factory sigcheck every reboot. Entry "74.125.205.147 google.com" likely redundant with newer
+#firmware builds but harmless.
 
 CONFIG=$1
 source /usr/sbin/helper.sh
 sed -i '$a\#' $CONFIG
 sed -i '$a\## begin of silently block all redundant querys to Google, TrendMicro, and Asus ##' $CONFIG
-pc_append "74.125.205.147 google.com" $CONFIG
-pc_append "192.168.50.2 rgom10-en.url.trendmicro.com" $CONFIG
+pc_append "#AsusWRT AI Protection Signature updates" $CONFIG
+pc_append "#https://dlcdnets.asus.com/pub/ASUS/LiveUpdate/Release/Wireless/sig2nd_update.zip" $CONFIG
+pc_append "#https://raw.githubusercontent.com/RMerl/asuswrt-merlin.382/master/release/src/router/rom/webs_scripts/sig2nd_update.sh" $CONFIG
+pc_append "#remove --no-check-certificate from sig2nd_update.sh to assure no MITM. " $CONFIG
+pc_append "192.168.50.2 activeupdate.trendmicro.co.jp" $CONFIG
+pc_append "192.168.50.2 backup21.url.trendmicro.com" $CONFIG
+pc_append "192.168.50.2 backup37.url.trendmicro.com" $CONFIG
+pc_append "192.168.50.2 dlcdnets.asus.com #Only this for AI-Protection sig updates;" $CONFIG
+pc_append "192.168.50.2 dlcdnets-ds.asus.com.edgekey.net" $CONFIG
+pc_append "192.168.50.2 e5110.dscd.akamaiedge.net" $CONFIG
 pc_append "192.168.50.2 fbsv1.trendmicro.com" $CONFIG
 pc_append "192.168.50.2 fbsv2.trendmicro.com" $CONFIG
 pc_append "192.168.50.2 gslb1.fbs.trendmicro.com.akadns.net" $CONFIG
-pc_append "192.168.50.2 rgom10-en.url.trendmicro.com" $CONFIG
-pc_append "192.168.50.2 trendmicro.com.edgesuite.net" $CONFIG
-pc_append "192.168.50.2 slb1.fbs.trendmicro.com.akadns.net" $CONFIG
-pc_append "192.168.50.2 activeupdate.trendmicro.co.jp" $CONFIG
-pc_append "192.168.50.2 backup21.url.trendmicro.com" $CONFIG
-pc_append "192.168.50.2 wrs.trendmicro.com" $CONFIG
-pc_append "192.168.50.2 e5110.dscd.akamaiedge.net" $CONFIG
-pc_append "#AsusWRT AI Protection Signature updates" $CONFIG
-pc_append "#192.168.50.2 dlcdnets.asus.com" $CONFIG
-pc_append "#192.168.50.2 dlcdnets-ds.asus.com.edgekey.net" $CONFIG
-pc_append "#Signature updates In Asia?" $CONFIG
-pc_append "#192.168.50.2 wideip-dlcdnets.isoi.asia" $CONFIG
-pc_append "#This showed up only once during initial sig update check, not subsequent checks. Will confirm if this is needed during next sig release." $CONFIG
 pc_append "192.168.50.2 ntd-asus-2014b-en.fbs20.trendmicro.com" $CONFIG
+pc_append "192.168.50.2 ntd-asus-2014b-en-cfg.fbs20.trendmicro.com" $CONFIG
+pc_append "192.168.50.2 rgom10-en.url.trendmicro.com" $CONFIG
+pc_append "192.168.50.2 slb1.fbs.trendmicro.com.akadns.net" $CONFIG
+pc_append "192.168.50.2 trendmicro.com.edgesuite.net" $CONFIG
+pc_append "192.168.50.2 wideip-dlcdnets.isoi.asia" $CONFIG
+pc_append "192.168.50.2 wrs.trendmicro.com" $CONFIG
+pc_append "74.125.205.147 google.com" $CONFIG
 sed -i '$a\## end of Silently Block All Redundant Querys to Google, TrendMicro, and Asus ##' $CONFIG
 sed -i '$a\#' $CONFIG
 
-service restart_dnsmasq
+A reboot is required for full benefits including enhanced browsing speeds
 
-# 4) Block AsusWRT 10 second reoccuring portless probe to 8.8.8.8 (google dns)
-(waiting for code, want to block this without needing skynet)
+# 3) Block AsusWRT 10 second reoccuring portless probe to 8.8.8.8 (google dns)
+edit /jffs/scripts/firewall-start
 
-# 5) Block Reoccuring DNS Probe to Microsoft
+#!/bin/sh
+#sh /jffs/scripts/scriptname.sh "xx xx xx xx"
+iptables -I OUTPUT -s 8.8.8.8 -j DROP
+iptables -I OUTPUT -s 8.8.4.4 -j DROP
+
+# 4) Block Reoccuring DNS Probe to Microsoft
 
 nvram set dns_probe_content=127.0.0.1
 nvram commit
 notify: make sure to reboot router
 
-# 6) Block IPv6 DNS over IPv4 (requires Dnscrypt)
+# 5) Block IPv6 DNS over IPv4 (requires Dnscrypt)
 /jffs/dnscrypt/dnscrypt-proxy.toml
 search for & Replace string
 sed -i -e 's/block_ipv6 = false/block_ipv6 = true/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
 
-restart dnscrypt
-(for dnscrypt installer)
-/jffs/dnscrypt/manager dnscrypt-stop
-/jffs/dnscrypt/manager dnscrypt-start
-
-# 7) Block Reverse IPv6 Arpa (leaks past IPv6 DNS block)
-pc_append "server=/ip6.arpa/" $CONFIG
-/jffs/scripts/dnsmasq.postconf
-/etc/dnsmasq.conf
-service restart_dnsmasq
-
-# 8) Enable Dnscrypt Logs 
-sed -i -e 's/# log_level/log_level/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
-sed -i -e 's/# file = 'query.log'/file = 'query.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
-sed -i -e 's/# file = 'nx.log'/file = 'suspicious.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
-sed -i -e 's/# log_file = 'dnscrypt-proxy.log'/log_file = 'dnscrypt-proxy.log'/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
+# 6) Enable Dnscrypt Logs 
+query.log /jffs/dnscrypt/example-dnscrypt-proxy.toml
+suspicious.log
+dnscrypt-proxy.log
 
 restart dnscrypt
-(for dnscrypt installer)
-/jffs/dnscrypt/manager dnscrypt-stop
 /jffs/dnscrypt/manager dnscrypt-start
 
-# 9) Remove all changes
 
-# e) Exit
 
 
