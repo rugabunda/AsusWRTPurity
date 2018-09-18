@@ -76,7 +76,7 @@ Create/Add to bottom of /jffs/scripts/hosts.postconf
 
 #Enable or disable sig updates as desired, just unblock dlcdnets-asus.com, run dnsmsaq run sig2nd_update.sh, reblock, repeat.
 #Permanent unblock will factory sigcheck every reboot. Entry "74.125.205.147 google.com" likely redundant with newer
-#firmware builds but harmless.
+#firmware builds but harmless. Recommended you ping google.com and replace with new ip.
 
 CONFIG=$1
 source /usr/sbin/helper.sh
