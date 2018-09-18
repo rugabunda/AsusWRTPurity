@@ -125,13 +125,7 @@ notify: make sure to reboot router
 
 # 5) Block IPv6 DNS over IPv4 (requires Dnscrypt)
 /jffs/dnscrypt/dnscrypt-proxy.toml
-search for & Replace string
-sed -i -e 's/block_ipv6 = false/block_ipv6 = true/g' /jffs/dnscrypt/example-dnscrypt-proxy.toml
-
-# 6) Enable Dnscrypt Logs 
-query.log /jffs/dnscrypt/example-dnscrypt-proxy.toml
-suspicious.log
-dnscrypt-proxy.log
+block_ipv6 = true
 
 restart dnscrypt
 /jffs/dnscrypt/manager dnscrypt-start
