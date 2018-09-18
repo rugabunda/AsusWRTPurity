@@ -31,7 +31,6 @@ pc_append "server=/url.trendmicro.com/" $CONFIG
 
 
 # 2) Block AsusWRT built in signaling to Trendmicro, Google & other entities
-Notify users: 
 
 Create/Add to bottom of /jffs/scripts/hosts.postconf
 
