@@ -126,13 +126,11 @@ notify: make sure to reboot router
 # 5) Block Leaky IPv6 DNS over IPv4 (requires Dnscrypt) 
 /jffs/dnscrypt/dnscrypt-proxy.toml
 block_ipv6 = true
-dnscrypt blacklist *ip6.arpa*
-
 
 restart dnscrypt
 /jffs/dnscrypt/manager dnscrypt-start
 
-Also be sure to block Ipv6 under Merlin GUI.
+
 
 
 
