@@ -1,7 +1,6 @@
-# 1) *Speed up browsing upto 10x, Stop AsusWRT Probes
-     Block PTR / Arpa
-Notify users: 
-Created/Added to bottom of /jffs/scripts/dnsmasq.postconf 
+# 1) *Speed up browsing upto 10x, Stop AsusWRT Probes Block PTR / Arpa
+
+Create/Add to bottom of /jffs/scripts/dnsmasq.postconf 
 
 #!/bin/sh
 
