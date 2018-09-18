@@ -89,7 +89,7 @@ pc_append "#remove --no-check-certificate from sig2nd_update.sh to assure no MIT
 pc_append "192.168.50.2 activeupdate.trendmicro.co.jp" $CONFIG
 pc_append "192.168.50.2 backup21.url.trendmicro.com" $CONFIG
 pc_append "192.168.50.2 backup37.url.trendmicro.com" $CONFIG
-pc_append "192.168.50.2 dlcdnets.asus.com #Only this for AI-Protection sig updates;" $CONFIG
+pc_append "192.168.50.2 dlcdnets.asus.com #This alone is for AI-Protection sig updates;" $CONFIG
 pc_append "192.168.50.2 dlcdnets-ds.asus.com.edgekey.net" $CONFIG
 pc_append "192.168.50.2 e5110.dscd.akamaiedge.net" $CONFIG
 pc_append "192.168.50.2 fbsv1.trendmicro.com" $CONFIG
