@@ -42,7 +42,7 @@ Create/Add to bottom of /jffs/scripts/hosts.postconf
 
 # Blocks most 10-14 second reoccurring querys to google
 # Blocks all reoccurring querys to Asus / Trend Micro
-# Stops redundant logging for cleaner logs [when blocking trendmicro, and google in ab-solution for example]
+# Stops redundant logging for cleaner logs [when blocking trendmicro, and google in diversion for example]
 
 ##############################################################################
 # 1. Note, repeated querys to google safe browsing servers become apparent if:
