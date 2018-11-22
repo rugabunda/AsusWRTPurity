@@ -285,10 +285,11 @@ Create/add to /jffs/scripts/avahi-daemon.postconf
 logger "avahi-daemon.postconf:" "Removing system-generated $1 so avahi-daemon will quietly exit."
 mv $1 $1.system
 
-# 7) Disable Samba server
+# 7) Disable Samba/Itunes/UPNP/FTP server
 
 Navigate to Router GUI
-https://192.***.***.***/Advanced_AiDisk_samba.asp
+https://192.168.50.1/mediaserver.asp
 
 Disable.
+
 
