@@ -31,6 +31,7 @@ pc_append "server=/url.trendmicro.com/" $CONFIG
 # 1b)
 
 #Some ASUS component connects to multiple stun servers on each boot & while loading pages in the router gui such as AiCloud 2.0, including googles, can reveal geolocation. Blocking does NOT break VOIP.
+#USB Application, VPN server,IPV6, WAN Pages connect to www.asus.com & or stun servers.
 
 Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.services.mozilla.com from 127.0.0.1
 Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.services.mozilla.com to 127.0.0.1
@@ -254,5 +255,10 @@ Create/add to /jffs/scripts/avahi-daemon.postconf
 logger "avahi-daemon.postconf:" "Removing system-generated $1 so avahi-daemon will quietly exit."
 mv $1 $1.system
 
+# 7) Disable Samba server
 
+Navigate to Router GUI
+https://192.***.***.***/Advanced_AiDisk_samba.asp
+
+Disable.
 
