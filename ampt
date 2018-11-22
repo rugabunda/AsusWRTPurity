@@ -1,5 +1,6 @@
 # 1) *Speed up browsing upto 10x, Stop AsusWRT Probes Block PTR / Arpa
 
+For users NOT using diversion.ch:
 Create/Add to bottom of /jffs/scripts/dnsmasq.postconf 
 
 #!/bin/sh
@@ -27,16 +28,15 @@ pc_append "server=/url.trendmicro.com/" $CONFIG
 
 #For those using diversion, add the following to /opt/share/diversion/lists/wc_blacklist
 
-arpa
-url.trendmicro.com
-
+arpa #Blocks all arpa, https://www.iana.org/domains/arpa
+url.trendmicro.com # has many subdomains, some known to me, eg backup21.url.trendmicro.com, backup37.url.trendmicro.com
 
 #Optional (I use in dnscrypt proxy blacklist for logs (dnsmasq/diversion wont log wildcard blocks) and dnscrypt treats . as . dnsmasq treats . as * 
 
-lytics (analytics often abbreviated as lytic, lytic could false positive analytical.com)
-metric (metrics data gathering)
-teleme #telemetry (telem will block telemarket, teleme results in less false positives)
-stun (will false positive eg, stunt.com... dnscrypt proxy can use *stun.* for less false positives.
+lytics        #analytics, often abbreviated as lytic, lytic could false positive analytical.com
+metric        #metrics data gathering
+teleme        #telemetry, telem will block telemarket, teleme results in less false positives
+stun          #stun servers. Will false positive eg, stunt.com... dnscrypt proxy can use *stun.* for less false positives.
 s1.taraba.net #Stun
 s2.taraba.net #Stun
 
