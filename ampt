@@ -233,9 +233,39 @@ nvram set dns_probe_content=127.0.0.1
 nvram commit
 notify: make sure to reboot router
 
-# 5) Block Leaky IPv6 DNS over IPv4 (requires Dnscrypt) 
+# 5) Block Leaky IPv6 DNS over IPv4 & Enable blacklist (requires Dnscrypt) 
 /jffs/dnscrypt/dnscrypt-proxy.toml
 block_ipv6 = true
+uncomment #blacklist_file = 'blacklist.txt'
+uncomment #log_file = 'blocked.log'
+
+ex. blocklist
+
+*arpa*
+*geoip*
+geo.mozilla.org
+numb.viagenie.ca #stun
+s1.taraba.net #stun
+s2.taraba.net #stun
+*stun.*
+*stun0*
+*stun1*
+*stun2*
+*stun3*
+*stun4*
+*stunserver*
+services.disconnect.me.herokudns.com 
+*metric*
+*teleme*
+*lytics*
+googleadapis.l.google.com
+ip-info.ff.avast.com
+*ct.googleapis.com
+*url.trendmicro.com
+*.wns.windows.com
+*vo.msecnd.net
+194.1.145.02.52.0.0
+
 
 restart dnscrypt
 /jffs/dnscrypt/manager dnscrypt-start
