@@ -26,17 +26,69 @@ pc_append "bogus-priv" $CONFIG
 pc_append "server=/arpa/" $CONFIG
 pc_append "server=/url.trendmicro.com/" $CONFIG
 
-#For those using diversion, add the following to /opt/share/diversion/lists/wc_blacklist
 
-arpa #Blocks all arpa, https://www.iana.org/domains/arpa
+
+
+#Some ASUS component connects to multiple stun servers on each boot, including googles, can reveal geolocation. Blocking does NOT break VOIP.
+
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.services.mozilla.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.services.mozilla.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.services.mozilla.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.services.mozilla.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.services.mozilla.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.services.mozilla.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.services.mozilla.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.l.google.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.l.google.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.l.google.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.l.google.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.l.google.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.l.google.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.iptel.org from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.iptel.org to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.iptel.org from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.iptel.org to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.iptel.org from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.iptel.org to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.stunprotocol.org from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.stunprotocol.org to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.stunprotocol.org from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.stunprotocol.org to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.stunprotocol.org from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.stunprotocol.org to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.xten.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.xten.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.xten.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.xten.com to 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
+Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.xten.com from 127.0.0.1
+Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.xten.com to 127.0.0.1
+
+
+#For those USING diversion (if in use, remove the additions from dnsmasq.postconf), add the following to /opt/share/diversion/lists/wc_blacklist
+#which is the same as dnsmasq.postconf
+arpa               #Blocks all arpa, (reverse DNS, used by 127.0.0.1 for certain unknown signals noted below https://www.iana.org/domains/arpa
 url.trendmicro.com # has many subdomains, some known to me, eg backup21.url.trendmicro.com, backup37.url.trendmicro.com
 
-#Optional (I use in dnscrypt proxy blacklist for logs (dnsmasq/diversion wont log wildcard blocks) and dnscrypt treats . as . dnsmasq treats . as * 
+#Optional in diversion (I use in dnscrypt proxy blacklist for logs (dnsmasq/diversion wont log wildcard blocks) and dnscrypt treats . as . dnsmasq treats . as * 
 
 lytics        #analytics, often abbreviated as lytic, lytic could false positive analytical.com
 metric        #metrics data gathering
 teleme        #telemetry, telem will block telemarket, teleme results in less false positives
-stun          #stun servers. Will false positive eg, stunt.com... dnscrypt proxy can use *stun.* for less false positives.
+stun          #stun servers. Will false positive eg, stunt.com... dnscrypt proxy can use *stun.*, *stun0* through *stun4*, for less false positives.
 s1.taraba.net #Stun
 s2.taraba.net #Stun
 
