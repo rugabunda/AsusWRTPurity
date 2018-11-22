@@ -25,10 +25,20 @@ pc_append "bogus-priv" $CONFIG
 pc_append "server=/arpa/" $CONFIG
 pc_append "server=/url.trendmicro.com/" $CONFIG
 
+#For those using diversion, add the following to /opt/share/diversion/lists/wc_blacklist
+
+arpa
+url.trendmicro.com
 
 
+#Optional (I use in dnscrypt proxy blacklist for logs (dnsmasq/diversion wont log wildcard blocks) and dnscrypt treats . as . dnsmasq treats . as * 
 
-
+lytics (analytics often abbreviated as lytic, lytic could false positive analytical.com)
+metric (metrics data gathering)
+teleme #telemetry (telem will block telemarket, teleme results in less false positives)
+stun (will false positive eg, stunt.com... dnscrypt proxy can use *stun.* for less false positives.
+s1.taraba.net #Stun
+s2.taraba.net #Stun
 
 # 2) Block AsusWRT built in signaling to Trendmicro, Google & other entities
 
