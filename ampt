@@ -1,5 +1,6 @@
-# 1) *Speed up browsing upto 10x, Stop AsusWRT Probes Block PTR / Arpa
+#1a) *Speed up browsing upto 10x, Stop AsusWRT Probes Block PTR / Arpa
 
+For users using diversion skip to #1b)
 For users NOT using diversion.ch:
 Create/Add to bottom of /jffs/scripts/dnsmasq.postconf 
 
@@ -27,7 +28,7 @@ pc_append "server=/arpa/" $CONFIG
 pc_append "server=/url.trendmicro.com/" $CONFIG
 
 
-
+#1b)
 
 #Some ASUS component connects to multiple stun servers on each boot, including googles, can reveal geolocation. Blocking does NOT break VOIP.
 
@@ -79,10 +80,10 @@ Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.xten.com to 127.0.0.1
 
 
 #For those USING diversion (if in use, remove the additions from dnsmasq.postconf), add the following to /opt/share/diversion/lists/wc_blacklist
-#which is the same as dnsmasq.postconf
+#which is the same as #1a dnsmasq.postconf
 
 arpa               #Blocks all arpa, (reverse DNS, used by 127.0.0.1 for certain unknown signals noted below https://www.iana.org/domains/arpa
-url.trendmicro.com # has many subdomains, some known to me, eg backup21.url.trendmicro.com, backup37.url.trendmicro.com
+url.trendmicro.com # has many subdomains, eg backup21.url.trendmicro.com, backup37.url.trendmicro.com
 
 #Optional in diversion (I use in dnscrypt proxy blacklist for logs (dnsmasq/diversion wont log wildcard blocks) and dnscrypt treats . as . dnsmasq treats . as * 
 
@@ -179,7 +180,7 @@ edit /jffs/scripts/firewall-start
 iptables -I OUTPUT -s 8.8.8.8 -j DROP
 iptables -I OUTPUT -s 8.8.4.4 -j DROP
 
-#replace with 1.1.1.1 if not in use
+#add or replace with 1.1.1.1 if not in use
 
 # 4) Block Reoccuring DNS Probe to Microsoft
 
@@ -194,7 +195,7 @@ block_ipv6 = true
 restart dnscrypt
 /jffs/dnscrypt/manager dnscrypt-start
 
-# 6) disable avahi-daemon, reduce attack surface, free up ram.
+# 6) disable avahi-daemon, reduces attack surface, frees up ram. Security mostly important for public wifi hotspots, but wont hurt if not using file servers.
 Create/add to /jffs/scripts/avahi-daemon.postconf
 
 #!/bin/sh
