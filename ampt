@@ -78,6 +78,49 @@ Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
 Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.xten.com from 127.0.0.1
 Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.xten.com to 127.0.0.1
 
+Some ASUS components connect to multiple time servers, including googles, potentially revealing timed signals intelligence. Recommended, at least blocking time.google.com & time.nist.gov 
+
+13:59:58 dnsmasq[10517]: query[A] time.google.com from 127.0.0.1
+13:59:58 dnsmasq[10517]: forwarded time.google.com to 127.0.0.1
+13:59:58 dnsmasq[10517]: query[A] pool.ntp.org from 127.0.0.1
+13:59:58 dnsmasq[10517]: forwarded pool.ntp.org to 127.0.0.1
+13:59:58 dnsmasq[10517]: query[A] 0.pool.ntp.org from 127.0.0.1
+13:59:58 dnsmasq[10517]: forwarded 0.pool.ntp.org to 127.0.0.1
+13:59:58 dnsmasq[10517]: query[A] time.nist.gov from 127.0.0.1
+13:59:58 dnsmasq[10517]: forwarded time.nist.gov to 127.0.0.1
+13:59:58 dnsmasq[10517]: query[A] 1.pool.ntp.org from 127.0.0.1
+13:59:58 dnsmasq[10517]: forwarded 1.pool.ntp.org to 127.0.0.1
+13:59:58 dnsmasq[10517]: query[A] 2.pool.ntp.org from 127.0.0.1
+13:59:58 dnsmasq[10517]: forwarded 2.pool.ntp.org to 127.0.0.1
+13:59:58 dnsmasq[10517]: query[A] 3.pool.ntp.org from 127.0.0.1
+13:59:58 dnsmasq[10517]: forwarded 3.pool.ntp.org to 127.0.0.1
+13:59:58 dnsmasq[10517]: reply 0.pool.ntp.org is 129.250.35.250
+13:59:58 dnsmasq[10517]: reply 0.pool.ntp.org is 51.15.10.155
+13:59:58 dnsmasq[10517]: reply 0.pool.ntp.org is 45.32.4.67
+13:59:58 dnsmasq[10517]: reply 0.pool.ntp.org is 13.80.10.154
+13:59:58 dnsmasq[10517]: reply time.google.com is 216.239.35.4
+13:59:58 dnsmasq[10517]: reply time.google.com is 216.239.35.8
+13:59:58 dnsmasq[10517]: reply time.google.com is 216.239.35.0
+13:59:58 dnsmasq[10517]: reply time.google.com is 216.239.35.12
+13:59:58 dnsmasq[10517]: reply time.nist.gov is <CNAME>
+13:59:58 dnsmasq[10517]: reply ntp1.glb.nist.gov is 132.163.96.1
+13:59:58 dnsmasq[10517]: reply pool.ntp.org is 93.94.224.67
+13:59:58 dnsmasq[10517]: reply pool.ntp.org is 129.250.35.250
+13:59:58 dnsmasq[10517]: reply pool.ntp.org is 95.211.120.4
+13:59:58 dnsmasq[10517]: reply pool.ntp.org is 5.79.108.34
+13:59:58 dnsmasq[10517]: reply 1.pool.ntp.org is 93.90.200.201
+13:59:58 dnsmasq[10517]: reply 1.pool.ntp.org is 95.211.212.5
+13:59:58 dnsmasq[10517]: reply 1.pool.ntp.org is 139.59.199.215
+13:59:58 dnsmasq[10517]: reply 1.pool.ntp.org is 88.212.196.95
+13:59:58 dnsmasq[10517]: reply 3.pool.ntp.org is 95.211.212.5
+13:59:58 dnsmasq[10517]: reply 3.pool.ntp.org is 31.3.104.60
+13:59:58 dnsmasq[10517]: reply 3.pool.ntp.org is 94.228.220.14
+13:59:58 dnsmasq[10517]: reply 3.pool.ntp.org is 149.210.199.182
+13:59:58 dnsmasq[10517]: reply 2.pool.ntp.org is 185.92.220.131
+13:59:58 dnsmasq[10517]: reply 2.pool.ntp.org is 46.243.26.34
+13:59:58 dnsmasq[10517]: reply 2.pool.ntp.org is 171.33.132.5
+13:59:58 dnsmasq[10517]: reply 2.pool.ntp.org is 129.250.35.250
+
 
 #For those USING diversion, be sure # 1a) is not in use, manually add the following to /opt/share/diversion/lists/wc_blacklist
 #this is same as #1a dnsmasq.postconf
