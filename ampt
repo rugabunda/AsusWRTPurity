@@ -1,4 +1,4 @@
-#1a) *Speed up browsing upto 10x, Stop AsusWRT Probes Block PTR / Arpa
+# 1a) *Speed up browsing upto 10x, Stop AsusWRT Probes Block PTR / Arpa
 
 If using diversion adblocker skip to #1b)
 For users NOT using diversion.ch:
@@ -28,7 +28,7 @@ pc_append "server=/arpa/" $CONFIG
 pc_append "server=/url.trendmicro.com/" $CONFIG
 
 
-#1b)
+# 1b)
 
 #Some ASUS component connects to multiple stun servers on each boot, including googles, can reveal geolocation. Blocking does NOT break VOIP.
 
@@ -79,8 +79,8 @@ Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.xten.com from 127.0.0.1
 Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.xten.com to 127.0.0.1
 
 
-#For those USING diversion (if in use, remove the additions from dnsmasq.postconf), add the following to /opt/share/diversion/lists/wc_blacklist
-#which is the same as #1a dnsmasq.postconf
+#For those USING diversion, be sure # 1a) is not in use, add the following to /opt/share/diversion/lists/wc_blacklist
+#this is same as #1a dnsmasq.postconf
 
 arpa               #Blocks all arpa, (reverse DNS, used by 127.0.0.1 for certain unknown signals noted below https://www.iana.org/domains/arpa
 url.trendmicro.com # has many subdomains, eg backup21.url.trendmicro.com, backup37.url.trendmicro.com, rgom10-en.url.trendmicro.com
