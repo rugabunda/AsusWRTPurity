@@ -30,7 +30,7 @@ pc_append "server=/url.trendmicro.com/" $CONFIG
 
 # 1b)
 
-#Some ASUS component connects to multiple stun servers on each boot & switching pages in the router gui, including googles, can reveal geolocation. Blocking does NOT break VOIP.
+#Some ASUS component connects to multiple stun servers on each boot & loading pages in the router gui such as AiCloud 2.0, including googles, can reveal geolocation. Blocking does NOT break VOIP.
 
 Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.services.mozilla.com from 127.0.0.1
 Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.services.mozilla.com to 127.0.0.1
