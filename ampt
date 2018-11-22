@@ -1,6 +1,6 @@
 #1a) *Speed up browsing upto 10x, Stop AsusWRT Probes Block PTR / Arpa
 
-For users using diversion skip to #1b)
+If using diversion adblocker skip to #1b)
 For users NOT using diversion.ch:
 Create/Add to bottom of /jffs/scripts/dnsmasq.postconf 
 
