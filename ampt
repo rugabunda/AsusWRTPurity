@@ -170,13 +170,15 @@ sed -i '$a\#' $CONFIG
 
 A reboot is required for full benefits including enhanced browsing speeds
 
-# 3) Block AsusWRT 10 second reoccuring portless probe to 8.8.8.8 (google dns)
+# 3) Block AsusWRT 10 second reoccuring portless probe to 8.8.8.8 (google dns) now appears to be 1.1.1.1!
 edit /jffs/scripts/firewall-start
 
 #!/bin/sh
 #sh /jffs/scripts/scriptname.sh "xx xx xx xx"
 iptables -I OUTPUT -s 8.8.8.8 -j DROP
 iptables -I OUTPUT -s 8.8.4.4 -j DROP
+
+#replace with 1.1.1.1 if not in use
 
 # 4) Block Reoccuring DNS Probe to Microsoft
 
@@ -191,8 +193,20 @@ block_ipv6 = true
 restart dnscrypt
 /jffs/dnscrypt/manager dnscrypt-start
 
+# 6) disable avahi-daemon, reduce attack surface, free up ram.
+Create/add to /jffs/scripts/avahi-daemon.postconf
 
+#!/bin/sh
+#
+# /jffs/scripts/avahi-daemon.postconf
+#
+# WE DON'T WANT AVAHI-DAEMON RUNNING.  It serves no purpose in our use, and may in fact interfere with
+# the zeroconf service running as part of pyTivo.  This script's only purpose is to effectively remove
+# the system-generated .conf file so when avahi-daemon attempts to start, it will die a quick death.
 
+# save the system-generated conf file (in case we want to review it)
+logger "avahi-daemon.postconf:" "Removing system-generated $1 so avahi-daemon will quietly exit."
+mv $1 $1.system
 
 
 
