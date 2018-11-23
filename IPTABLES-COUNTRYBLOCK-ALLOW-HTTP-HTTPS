@@ -9,7 +9,7 @@
 # Call the file whatever you want, then just add an entry in /jffs/scripts/firewall-start (above Skynets)
 # For example: 
 # sh /jffs/scripts/countryblock.sh "il"
-# chmod 0755 /jffs/scripts/countryblock.sh
+# then chmod 0755 /jffs/scripts/countryblock.sh
 
 if [ -z "$1" ]; then echo "Country Field Cannot Be Empty - Please Try Again"; echo; exit 2; fi
 if [ "${#1}" -gt "246" ]; then countrylist="Multiple Countries"; else countrylist="$1"; fi
