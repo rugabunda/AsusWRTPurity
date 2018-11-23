@@ -30,6 +30,7 @@ pc_append "server=/url.trendmicro.com/" $CONFIG
 
 # 1b)
 
+#Any query coming from 127.0.0.1 and not 192.168.50.* for example, is coming from some Asus/Trendmicro/or some other addon perhaps.
 #Some ASUS component connects to multiple stun servers on each boot & while loading pages in the router gui such as AiCloud 2.0, including googles, can reveal geolocation. Blocking does NOT break VOIP.
 #USB Application, VPN server,IPV6, WAN Pages connect to www.asus.com & or stun servers.
 
