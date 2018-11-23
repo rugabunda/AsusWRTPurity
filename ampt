@@ -123,15 +123,13 @@ Some ASUS components connect to multiple time servers, including googles, potent
 13:59:58 dnsmasq[10517]: reply 2.pool.ntp.org is 171.33.132.5
 13:59:58 dnsmasq[10517]: reply 2.pool.ntp.org is 129.250.35.250
 
-
 #For those USING diversion, be sure # 1a) is not in use, manually add the following to /opt/share/diversion/lists/wc_blacklist
 #this is same as #1a dnsmasq.postconf
 
 arpa               #Blocks all arpa, (reverse DNS, used by 127.0.0.1 for certain unknown signals noted below https://www.iana.org/domains/arpa
 url.trendmicro.com # has many subdomains, eg backup21.url.trendmicro.com, backup37.url.trendmicro.com, rgom10-en.url.trendmicro.com
 
-#Optional in diversion (I use in dnscrypt proxy blacklist for logs (dnsmasq/diversion wont log wildcard blocks) and dnscrypt treats . as . dnsmasq treats . as * 
-
+#Optional in diversion
 ct.googleapis.com #Leaky google dns proof fetching, more details: https://github.com/henrypp/chromium/issues/47
 
 # 2) Block AsusWRT built in signaling to Trendmicro, Google & other entities
@@ -240,14 +238,14 @@ uncomment #log_file = 'blocked.log'
 
 ex. blocklist
 
-*arpa*
-*geoip*
-geo.*
-numb.viagenie.ca #stun
-s1.taraba.net #stun
-s2.taraba.net #stun
 #stun #stun servers. Will false positive eg, stunt.com... dnscrypt proxy can use *.stun*, *stun0* through *stun4*, for less false positives.
 *.stun*
+*.wns.windows.com
+*arpa*
+*ct.googleapis.com
+*geoip*
+*lytics*   #analytics, often abbreviated as lytic, lytic could false positive analytical.com
+*metric*   #metrics data gathering
 *stun.*
 *stun0*
 *stun1*
@@ -255,17 +253,16 @@ s2.taraba.net #stun
 *stun3*
 *stun4*
 *stunserver*
-services.disconnect.me.herokudns.com 
-*metric*   #metrics data gathering
 *telem*    #telemetry, telem will block domains that include telemarket, teleme will results in less false positives
-*lytics*   #analytics, often abbreviated as lytic, lytic could false positive analytical.com
-googleadapis.l.google.com
-ip-info.ff.avast.com
-*ct.googleapis.com
 *url.trendmicro.com
-*.wns.windows.com
 *vo.msecnd.net
 194.1.145.02.52.0.0
+googleadapis.l.google.com
+ip-info.ff.avast.com
+numb.viagenie.ca #stun
+s1.taraba.net #stun
+s2.taraba.net #stun
+services.disconnect.me.herokudns.com 
 
 
 restart dnscrypt
