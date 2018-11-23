@@ -131,12 +131,7 @@ url.trendmicro.com # has many subdomains, eg backup21.url.trendmicro.com, backup
 
 #Optional in diversion (I use in dnscrypt proxy blacklist for logs (dnsmasq/diversion wont log wildcard blocks) and dnscrypt treats . as . dnsmasq treats . as * 
 
-lytics        #analytics, often abbreviated as lytic, lytic could false positive analytical.com
-metric        #metrics data gathering
-teleme        #telemetry, telem will block telemarket, teleme results in less false positives
-stun          #stun servers. Will false positive eg, stunt.com... dnscrypt proxy can use *stun.*, *stun0* through *stun4*, for less false positives.
-s1.taraba.net #Stun
-s2.taraba.net #Stun
+ct.googleapis.com #Leaky google dns proof fetching, more details: https://github.com/henrypp/chromium/issues/47
 
 # 2) Block AsusWRT built in signaling to Trendmicro, Google & other entities
 
@@ -212,6 +207,9 @@ pc_append "192.168.50.2 trendmicro.com.edgesuite.net" $CONFIG
 pc_append "192.168.50.2 wideip-dlcdnets.isoi.asia" $CONFIG
 pc_append "192.168.50.2 wrs.trendmicro.com" $CONFIG
 pc_append "74.125.205.147 google.com" $CONFIG
+pc_append "time.google.com" $CONFIG
+pc_append "ntp1.glb.nist.gov" $CONFIG
+
 sed -i '$a\## end of Silently Block All Redundant Querys to Google, TrendMicro, and Asus ##' $CONFIG
 sed -i '$a\#' $CONFIG
 
@@ -243,10 +241,12 @@ ex. blocklist
 
 *arpa*
 *geoip*
-geo.mozilla.org
+geo.*
 numb.viagenie.ca #stun
 s1.taraba.net #stun
 s2.taraba.net #stun
+#stun #stun servers. Will false positive eg, stunt.com... dnscrypt proxy can use *.stun*, *stun0* through *stun4*, for less false positives.
+*.stun*
 *stun.*
 *stun0*
 *stun1*
@@ -255,9 +255,9 @@ s2.taraba.net #stun
 *stun4*
 *stunserver*
 services.disconnect.me.herokudns.com 
-*metric*
-*teleme*
-*lytics*
+*metric*   #metrics data gathering
+*telem*    #telemetry, telem will block domains that include telemarket, teleme will results in less false positives
+*lytics*   #analytics, often abbreviated as lytic, lytic could false positive analytical.com
 googleadapis.l.google.com
 ip-info.ff.avast.com
 *ct.googleapis.com
@@ -288,7 +288,7 @@ mv $1 $1.system
 # 7) Disable Samba/Itunes/UPNP/FTP server
 
 Navigate to Router GUI
-https://192.168.50.1/mediaserver.asp
+https://router.ip/mediaserver.asp
 
 Disable.
 
