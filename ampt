@@ -239,13 +239,13 @@ block_ipv6 = true
 uncomment #blacklist_file = 'blacklist.txt'
 uncomment #log_file = 'blocked.log'
 
-ex. blocklist CODE:
+ex. blacklist.txt CODE:
 
 #stun servers. *stun* Will false positive eg, stunt.com... you can use *.stun*, *stun0* through *stun4*, for less false positives.
 *.stun* #stun servers create a virtual nat for VOIP and other services, blocking does not break VIOP; firefox connects to stun servers on initiation; asuswrt router gui does; recommended blocked!
 *.wns.windows.com
 *arpa*
-*ct.googleapis.com
+*ct.googleapis.com #Leaky google dns proof fetching, more details: https://github.com/henrypp/chromium/issues/47
 *geoip*    #geo positioning
 *lytics*   #analytics, often abbreviated as lytic, lytic could false positive analytical.com
 *metric*   #metrics data gathering
@@ -259,9 +259,9 @@ ex. blocklist CODE:
 *telem*    #telemetry, telem will block domains that include telemarket, teleme will results in less false positives
 *url.trendmicro.com
 *vo.msecnd.net
-194.1.145.02.52.0.0
-googleadapis.l.google.com
-ip-info.ff.avast.com
+194.1.145.02.52.0.0 #strange reoccuring ip/domain found in dnscrypt suspicious.log
+googleadapis.l.google.com #google ads
+ip-info.ff.avast.com #not using avast, sill shows up oddly.
 numb.viagenie.ca #stun
 s1.taraba.net #stun
 s2.taraba.net #stun
