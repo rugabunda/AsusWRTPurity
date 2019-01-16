@@ -80,7 +80,8 @@ Nov 21 20:58:43 dnsmasq[1299]: reply error is REFUSED
 Nov 21 20:58:43 dnsmasq[1299]: query[A] stun.xten.com from 127.0.0.1
 Nov 21 20:58:43 dnsmasq[1299]: forwarded stun.xten.com to 127.0.0.1
 
-Some ASUS components connect to multiple time servers, including googles, potentially revealing timed signals intelligence. Recommended, at least blocking time.google.com & time.nist.gov 
+Some ASUS components connect to multiple time servers, including googles, potentially revealing timed signals intelligence. Recommended, at least blocking time.google.com & time.nist.gov;
+See # 5), below, for blocking stun servers; does not break voip!
 
 13:59:58 dnsmasq[10517]: query[A] time.google.com from 127.0.0.1
 13:59:58 dnsmasq[10517]: forwarded time.google.com to 127.0.0.1
@@ -240,7 +241,7 @@ uncomment #log_file = 'blocked.log'
 ex. blocklist CODE:
 
 #stun servers. *stun* Will false positive eg, stunt.com... you can use *.stun*, *stun0* through *stun4*, for less false positives.
-*.stun*
+*.stun* #stun servers create a virtual nat for VOIP and other services, blocking does not break VIOP
 *.wns.windows.com
 *arpa*
 *ct.googleapis.com
