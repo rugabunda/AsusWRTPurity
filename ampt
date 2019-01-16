@@ -2,7 +2,7 @@
 
 If using diversion adblocker skip to #1b)
 For users NOT using diversion.ch:
-Create/Add to bottom of /jffs/scripts/dnsmasq.postconf 
+Create/Add to bottom of /jffs/scripts/dnsmasq.postconf, CODE:
 
 #!/bin/sh
 
@@ -124,17 +124,17 @@ Some ASUS components connect to multiple time servers, including googles, potent
 13:59:58 dnsmasq[10517]: reply 2.pool.ntp.org is 129.250.35.250
 
 #For those USING diversion, be sure # 1a) is not in use, manually add the following to /opt/share/diversion/lists/wc_blacklist
-#this is same as #1a dnsmasq.postconf
+#this is same as # 1a) dnsmasq.postconf, wildcard domains!
+
+#List, CODE:
 
 arpa               #Blocks all arpa, (reverse DNS, used by 127.0.0.1 for certain unknown signals noted below https://www.iana.org/domains/arpa
 url.trendmicro.com # has many subdomains, eg backup21.url.trendmicro.com, backup37.url.trendmicro.com, rgom10-en.url.trendmicro.com
-
-#Optional in diversion
-ct.googleapis.com #Leaky google dns proof fetching, more details: https://github.com/henrypp/chromium/issues/47
+ct.googleapis.com  #Leaky google dns proof fetching, more details: https://github.com/henrypp/chromium/issues/47
 
 # 2) Block AsusWRT built in signaling to Trendmicro, Google & other entities
 
-Create/Add to bottom of /jffs/scripts/hosts.postconf
+Create/Add to bottom of /jffs/scripts/hosts.postconf, CODE:
 
 #!/bin/sh
 
@@ -215,7 +215,7 @@ sed -i '$a\#' $CONFIG
 A reboot is required for full benefits including enhanced browsing speeds
 
 # 3) Block AsusWRT 10 second reoccuring portless probe to 8.8.8.8 (google dns) UPDATE: now appears to been replaced by 1.1.1.1!
-edit /jffs/scripts/firewall-start
+edit /jffs/scripts/firewall-start, CODE:
 
 #!/bin/sh
 #sh /jffs/scripts/scriptname.sh "xx xx xx xx"
@@ -237,14 +237,14 @@ block_ipv6 = true
 uncomment #blacklist_file = 'blacklist.txt'
 uncomment #log_file = 'blocked.log'
 
-ex. blocklist
+ex. blocklist CODE:
 
-#stun #stun servers. Will false positive eg, stunt.com... dnscrypt proxy can use *.stun*, *stun0* through *stun4*, for less false positives.
+#stun servers. *stun* Will false positive eg, stunt.com... you can use *.stun*, *stun0* through *stun4*, for less false positives.
 *.stun*
 *.wns.windows.com
 *arpa*
 *ct.googleapis.com
-*geoip*
+*geoip*    #geo positioning
 *lytics*   #analytics, often abbreviated as lytic, lytic could false positive analytical.com
 *metric*   #metrics data gathering
 *stun.*
@@ -270,7 +270,7 @@ restart dnscrypt
 /jffs/dnscrypt/manager dnscrypt-start
 
 # 6) disable avahi-daemon, reduces attack surface, frees up ram. Security mostly important for public wifi hotspots, but wont hurt if not using file servers.
-Create/add to /jffs/scripts/avahi-daemon.postconf
+Create/add to /jffs/scripts/avahi-daemon.postconf, CODE:
 
 #!/bin/sh
 #
