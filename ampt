@@ -241,7 +241,7 @@ uncomment #log_file = 'blocked.log'
 ex. blocklist CODE:
 
 #stun servers. *stun* Will false positive eg, stunt.com... you can use *.stun*, *stun0* through *stun4*, for less false positives.
-*.stun* #stun servers create a virtual nat for VOIP and other services, blocking does not break VIOP
+*.stun* #stun servers create a virtual nat for VOIP and other services, blocking does not break VIOP; firefox connects to stun servers on initiation; asuswrt router gui does; recommended blocked!
 *.wns.windows.com
 *arpa*
 *ct.googleapis.com
