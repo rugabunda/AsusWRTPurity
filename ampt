@@ -224,9 +224,10 @@ iptables -I OUTPUT -s 8.8.8.8 -j DROP
 iptables -I OUTPUT -s 8.8.4.4 -j DROP
 iptables -I OUTPUT -s 1.1.1.1 -j DROP
 
-#add or replace with 1.1.1.1 if not in use; I don't recommend giving google a copy of your dns records.
+#I don't recommend giving google a complete copy of your dns records.
 
 # 4) Block Reoccuring DNS Probe to Microsoft
+ssh into router, 
 
 nvram set dns_probe_content=127.0.0.1
 nvram commit
