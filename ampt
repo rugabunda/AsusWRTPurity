@@ -207,8 +207,8 @@ pc_append "192.168.50.2 trendmicro.com.edgesuite.net" $CONFIG
 pc_append "192.168.50.2 wideip-dlcdnets.isoi.asia" $CONFIG
 pc_append "192.168.50.2 wrs.trendmicro.com" $CONFIG
 pc_append "74.125.205.147 google.com" $CONFIG
-pc_append "time.google.com" $CONFIG
-pc_append "ntp1.glb.nist.gov" $CONFIG
+pc_append "192.168.50.2 time.google.com" $CONFIG
+pc_append "192.168.50.2 ntp1.glb.nist.gov" $CONFIG
 
 sed -i '$a\## end of Silently Block All Redundant Querys to Google, TrendMicro, and Asus ##' $CONFIG
 sed -i '$a\#' $CONFIG
