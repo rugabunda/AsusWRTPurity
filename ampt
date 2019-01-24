@@ -210,7 +210,7 @@ pc_append "74.125.205.147 google.com" $CONFIG
 pc_append "192.168.50.2 time.google.com" $CONFIG
 pc_append "192.168.50.2 ntp1.glb.nist.gov" $CONFIG
 pc_append "192.168.50.2 time.nist.gov" $CONFIG
-#Because the router already querys pool.ntp.org, no need for extra signals intelligence.
+#Because the router already querys pool.ntp.org, reduce surface area, no need for extra signals intelligence; time servers likely candidates for national security data gathering/sharing.
 pc_append "192.168.50.2 0.pool.ntp.org" $CONFIG
 pc_append "192.168.50.2 1.pool.ntp.org" $CONFIG
 pc_append "192.168.50.2 2.pool.ntp.org" $CONFIG
