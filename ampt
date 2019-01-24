@@ -209,7 +209,12 @@ pc_append "192.168.50.2 wrs.trendmicro.com" $CONFIG
 pc_append "74.125.205.147 google.com" $CONFIG
 pc_append "192.168.50.2 time.google.com" $CONFIG
 pc_append "192.168.50.2 ntp1.glb.nist.gov" $CONFIG
-
+pc_append "192.168.50.2 time.nist.gov" $CONFIG
+#Because the router already querys pool.ntp.org, no need for extra signals intelligence.
+pc_append "192.168.50.2 0.pool.ntp.org" $CONFIG
+pc_append "192.168.50.2 1.pool.ntp.org" $CONFIG
+pc_append "192.168.50.2 2.pool.ntp.org" $CONFIG
+pc_append "192.168.50.2 3.pool.ntp.org" $CONFIG
 sed -i '$a\## end of Silently Block All Redundant Querys to Google, TrendMicro, and Asus ##' $CONFIG
 sed -i '$a\#' $CONFIG
 
