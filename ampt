@@ -223,7 +223,7 @@ edit /jffs/scripts/firewall-start, CODE:
 iptables -I OUTPUT -s 8.8.8.8 -j DROP
 iptables -I OUTPUT -s 8.8.4.4 -j DROP
 iptables -I OUTPUT -s 1.1.1.1 -j DROP
-
+iptables -I OUTPUT -s 1.0.0.1 -j DROP
 #I don't recommend giving google a complete copy of your dns records.
 
 # 4) Block Reoccuring DNS Probe to Microsoft
