@@ -193,7 +193,7 @@ pc_append "#run 'sh ./sig_update.sh' and 'sh ./sig_upgrade.sh' to update ai-prot
 pc_append "192.168.50.2 activeupdate.trendmicro.co.jp" $CONFIG
 pc_append "192.168.50.2 backup21.url.trendmicro.com" $CONFIG
 pc_append "192.168.50.2 backup37.url.trendmicro.com" $CONFIG
-pc_append "192.168.50.2 dlcdnets.asus.com #This alone is for AI-Protection sig updates, #block out for updates, restart dnsmasq via 'dnsmasq', block, repeat.;" $CONFIG
+pc_append "192.168.50.2 dlcdnets.asus.com #This alone is for AI-Protection sig updates, #block out for updates. Unblock, restart dnsmasq via 'dnsmasq', update sigs, run rc rc_service stop_wrs_force & rc rc_service start_wrs, block domain again, repeat.;" $CONFIG
 pc_append "192.168.50.2 dlcdnets-ds.asus.com.edgekey.net" $CONFIG
 pc_append "192.168.50.2 e5110.dscd.akamaiedge.net" $CONFIG
 pc_append "192.168.50.2 fbsv1.trendmicro.com" $CONFIG
