@@ -246,32 +246,126 @@ uncomment #log_file = 'blocked.log'
 
 ex. blacklist.txt CODE:
 
-#stun servers. *stun* Will false positive eg, stunt.com... you can use *.stun*, *stun0* through *stun4*, for less false positives.
-*.stun* #stun servers create a virtual nat for VOIP and other services, blocking does not break VIOP; firefox connects to stun servers on initiation; asuswrt router gui does; recommended blocked!
+#Diversion ads:
+
+aax-eu.amazon-adsystem.com
+aax-us-east.amazon-adsystem.com
+ad2.netshelter.net
+assets.omidoo.com
+flashtalking.com
+fls-na.amazon-adsystem.com
+images-na.ssl-images-amazon.com
+ir-na.amazon-adsystem.com
+ir-uk.amazon-adsystem.com
+pagead2.googlesyndication.com
+servedby.flashtalking.com
+tgdaily.com
+tgdaily.net
+vma.tgdaily.com
+vma.tgdaily.net
+wms-eu.amazon-adsystem.com
+wms-na.amazon-adsystem.com
+wms-na.assoc-amazon.com
+ws-eu.amazon-adsystem.com
+ws-na.amazon-adsystem.com
+z-na.amazon-adsystem.com
+
+
+
+#stun servers create a virtual nat for VOIP and other services, blocking does not break VIOP; firefox connects to stun servers on initiation; asuswrt router gui does; recommended blocked!
+
+*-*-*-*
+*.accountant
+*.ads
+*.baqend*.com
+*.click
+*.country
+*.cricket
+*.date
+*.download
+*.gdn
+*.icu
+*.inmobi*
+*.local
+*.men
+*.mobi
+*.omtrdc.net
+*.racing
+*.rayjump*
+*.review
+*.science
+*.study
+*.stun*
+*.top
+*.trade
+*.trafficmanager.net
+*.win
 *.wns.windows.com
+*.workgroup
+*[0-9].[0-9]*
+*009*009*
+*adfur*
+*adservice*
+*adsystem*
+*appinvite*
 *arpa*
-*ct.googleapis.com #Leaky google dns proof fetching, more details: https://github.com/henrypp/chromium/issues/47
-*geoip*    #geo positioning
-*lytics*   #analytics, often abbreviated as lytic, lytic could false positive analytical.com
-*metric*   #metrics data gathering
+*beacon*
+*crashrep*
+*ct.googleapis.com
+*endpoint.prod*
+*events-endpoint*
+*firebase*
+*geoip*
+*lytic*
+*metric*
+*mopub*
+*onesignal*
+*pagead*
+*scorecard*
+*statc*
 *stun.*
-*stun0*
-*stun1*
-*stun2*
-*stun3*
-*stun4*
+*stun[0-9]*
 *stunserver*
-*telem*    #telemetry, telem will block domains that include telemarket, teleme will results in less false positives
+*tapjoy*
+*telem*
+*tracking*
 *url.trendmicro.com
 *vo.msecnd.net
-194.1.145.02.52.0.0 #strange reoccuring ip/domain found in dnscrypt suspicious.log
-googleadapis.l.google.com #google ads
-ip-info.ff.avast.com #not using avast, sill shows up oddly.
-numb.viagenie.ca #stun
+*yahoodns*
+/24
+/32
+_aaplcache*
+185.72.52.0.0
+194.1.145.02.52.0.0
+ad-*.*
+ad.*
+ad[0-9]*.*
+ads.*
+ads[0-9]*.*
+banner.*
+banner[0-9]*.*
+banners.*
+banners[0-9]*.*
+creatives.*
+eth0.me
+geo.*
+geo[0-9]*.*
+id.*
+iid*.com
+mobile-preprod.audible.com
+numb.viagenie.ca
+oas.*
+oascentral.*
+ping.*
+ping[0-9]*.*
 s1.taraba.net #stun
 s2.taraba.net #stun
 services.disconnect.me.herokudns.com 
-
+soma*.net
+stats.*
+stats[0-9]*.*
+tag.*
+tag[0-9]
 
 restart dnscrypt
 /jffs/dnscrypt/manager dnscrypt-start
