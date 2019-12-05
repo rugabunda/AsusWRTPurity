@@ -392,10 +392,15 @@ https://router.ip/mediaserver.asp
 
 Disable.
 
-# 8) Asus router models use a service called infosvr that listens on UDP port 9999 on the LAN bridge. Normally this service is used for device discovery using the "ASUS Wireless Router Device Discovery Utility". It has root privileges and 
+===================
+
+Asus router models use a service called infosvr that listens on UDP port 9999 on the LAN bridge. Normally this service is used for device discovery using the "ASUS Wireless Router Device Discovery Utility". It has root privileges and 
 contains one publically known and patched unauthenticated command execution vulnerability
 
-Block port 9999, uneeded, and previously revealed remote execution vulnerability
+To easy list used ports/files try optware/entware lsof utility:
+Code: lsof | grep IPv4 | sort | less
+
+# 8) Block port 9999, uneeded, and previously revealed remote execution vulnerability
 https://www.securityforrealpeople.com/2015/01/asus-bug-lets-those-on-your-local.html
 https://www.snbforums.com/threads/security-lan-side-security-hole-mitigation.21774/
 confirm black is active with "iptables -L"
@@ -405,11 +410,7 @@ logger -t $0 "args $1"
 iptables -I INPUT  -p udp --dport 9999 -j DROP
 killall -9 infosrv
 
-To easy list used ports/files try optware/entware lsof utility:
-Code:
-lsof | grep IPv4 | sort | less
-
-# 9) Kill infosvr: services-start:
+# 9) Kill infosvr: services-start: (may cause wifi connectivit issues, can be minimized by manually channging wifi control channel)
 ==========================
 #!/bin/sh
 for pid in `ps -w | grep infosvr | grep -v grep | awk '{print $1}'`
