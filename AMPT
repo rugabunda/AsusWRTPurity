@@ -1,3 +1,5 @@
+# Harden Asuswrt for security
+
 # 1a) *Potentially Speed up browsing, Stop AsusWRT Probes Block PTR / Arpa
 
 If using diversion adblocker skip to #1b)
