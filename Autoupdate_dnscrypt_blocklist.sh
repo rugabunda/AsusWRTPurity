@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Script to update DNSCrypt blocklist
-# Info: https://www.snbforums.com/threads/script-auto-update-dnscrypt-blocklist.94813/
 # Downloads latest domain list and replaces blocklist.txt content after line 345
+# Info: https://www.snbforums.com/threads/script-auto-update-dnscrypt-blocklist.94813/
 
 # Define file paths
 BLOCKLIST="/jffs/addons/dnscrypt/blocked-names.txt"  # blocklist location
