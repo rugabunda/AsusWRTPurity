@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Script to update DNSCrypt blocklist
-# Downloads latest domain list and replaces blocklist.txt content after line 345
+# Downloads latest domain list and replaces blocked-names.txtt content after line 345
 # Info: https://www.snbforums.com/threads/script-auto-update-dnscrypt-blocklist.94813/
 
 # Define file paths
@@ -25,7 +25,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Delete everything in blocklist.txt after line 345 and append downloaded content
+# Delete everything in blocked-names.txt after line 345 and append downloaded content
 sed -i '346,$d' "$BLOCKLIST"
 cat "$DOWNLOADED_FILE" >> "$BLOCKLIST"
 
