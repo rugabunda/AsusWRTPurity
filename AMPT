@@ -142,7 +142,7 @@ Create/Add to bottom of /jffs/scripts/hosts.postconf, CODE:
 #!/bin/sh
 
 ############################################################################################
-### Block Trendmicro / Asus / Google Probes & redundant NXDOMAIN dnsmasq querys and logs ###
+### Block Trendmicro / Asus / Redundant NXDOMAIN dnsmasq querys and logs ###
 ############################################################################################
 
 # Blocks most 10-14 second reoccurring querys to google
@@ -158,12 +158,8 @@ Create/Add to bottom of /jffs/scripts/hosts.postconf, CODE:
 # Alternatively you may selectively block IP's collected from dnscrypt suspicious.log via dnsmasq hosts
 # Rebooting the router with dnscrypt suspicious entry logs enabled will give you the list.
 #
-# 2. Note, repeated 10 second AsusWRT probes to google.com become apparent only when blocking AsusWRT querys
-# to google safe browsing; the only solution for this without breaking google.com is a custom host entry in
-# dnsmasq as provided here. [update this no longer appears to be an issue in 384.7-beta1, not sure when this changed]
-# I recommended pinging google.com and replacing the IP below with whatever IP appears.
-# Exact order of persistent reoccurring query's found in dnscrypt blocked.log after compiling hundreds of
-# entries from suspicious.log and importing them to blacklist.txt
+# Exacted persistent reoccurring query's found in dnscrypt blocked.log after compiling hundreds of
+# entries from suspicious.log
 #
 # 144.159.185.198.in-addr.arpa AT&T Services, Inc https://otx.alienvault.com/indicator/ip/144.159.185.198
 # AlienVault details [NIDS 2001569 Behavioral Unusual Port 445 traffic Potential Scan or Infection Category: Recon. Subcategory: Scanner]
@@ -208,7 +204,6 @@ pc_append "192.168.50.2 slb1.fbs.trendmicro.com.akadns.net" $CONFIG
 pc_append "192.168.50.2 trendmicro.com.edgesuite.net" $CONFIG
 pc_append "192.168.50.2 wideip-dlcdnets.isoi.asia" $CONFIG
 pc_append "192.168.50.2 wrs.trendmicro.com" $CONFIG
-pc_append "74.125.205.147 google.com" $CONFIG
 pc_append "192.168.50.2 time.google.com" $CONFIG
 pc_append "192.168.50.2 ntp1.glb.nist.gov" $CONFIG
 pc_append "192.168.50.2 time.nist.gov" $CONFIG
@@ -231,7 +226,6 @@ iptables -I OUTPUT -s 8.8.8.8 -j DROP
 iptables -I OUTPUT -s 8.8.4.4 -j DROP
 iptables -I OUTPUT -s 1.1.1.1 -j DROP
 iptables -I OUTPUT -s 1.0.0.1 -j DROP
-#I don't recommend giving google a complete copy of your dns records.
 
 # 4) Block Reoccuring DNS Probe to Microsoft
 ssh into router, 
